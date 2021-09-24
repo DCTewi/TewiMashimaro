@@ -1,0 +1,4 @@
+_db/
+node_modules/
+
+config.json

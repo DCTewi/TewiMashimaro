@@ -1,0 +1,35 @@
+{
+  "name": "tewi-mashimaro",
+  "version": "1.0.0",
+  "description": "Yet another mashimaro instance",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/DCTewi/TewiMashimaro"
+  },
+  "keywords": [
+    "web"
+  ],
+  "author": "DCTewi",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "^1.4.5",
+    "csurf": "^1.11.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "level": "^7.0.0",
+    "pug": "^3.0.2",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "@types/csurf": "^1.11.2",
+    "@types/express": "^4.17.13",
+    "@types/level": "^6.0.0",
+    "@types/pug": "^2.0.5",
+    "@types/uuid": "^8.3.1"
+  }
+}
