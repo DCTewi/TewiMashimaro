@@ -26,6 +26,7 @@ homeRouter.get('', async (req, res) => {
     const answeredMashimaros = (await db().get()).filter(m => m.answer != undefined)
 
     res.render('home', {
+        siteName: config().siteName,
         title: config().siteName,
         description: config().description,
         headerImage: config().headerImageUrl,
@@ -36,7 +37,7 @@ homeRouter.get('', async (req, res) => {
         mashimaroStatus: mashimaroStatus,
 
         pageNumber: pageNumber,
-        pageTotal: Math.max(answeredMashimaros.length / capacity, 1)
+        pageTotal: Math.max(Math.ceil(answeredMashimaros.length / capacity), 1)
     })
 })
 

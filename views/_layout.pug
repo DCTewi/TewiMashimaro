@@ -4,22 +4,40 @@ html.h-100(lang="zh-CN")
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         meta(name="author", content="DCTewi")
-        base(href="~/")
         link(
             href='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css' 
             rel='stylesheet'
             crossorigin='anonymous'
         )
         link(href='/css/site.css' rel='stylesheet')
-        title #{title}
+        if title == siteName 
+            title #{siteName}
+        else 
+            title #{title} - #{siteName}
     body.d-flex.flex-column.h-100
         main.flex-shrink-0
             div.container
                 block content
         footer.footer.mt-auto.py-3.bg-light
             div.containter
-                p.text-center.text-muted Powered by © 
-                    a(href='https://github.com/DCTewi/TewiMashimaro' target='_blank') TewiMashimaro
+                p.text-center.text-muted 
+                    btn.text-decoration-none.link-primary(data-bs-toggle='modal' data-bs-target='#henshinModal') ⚡ 
+                    | Powered by © 
+                    a.text-decoration-none(href='https://github.com/DCTewi/TewiMashimaro' target='_blank') TewiMashimaro
+                div#henshinModal.modal.fade(tabindex='5' aria-labelledby='henshenLabel' aria-hidden='true')
+                    div.modal-dialog.modal-dialog-centered
+                        div.modal-content
+                            div.modal-header
+                                h5#henshenLabel.modal-title ⚡
+                                button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                            div.modal-body
+                                    form.needs-validation.mb-3(method='get' action='me' novalidate)
+                                        .form-floating.mb-3
+                                            input#floatingKey.form-control(type='password' name='key' placeholder='key' required)
+                                            label(for='floatingKey') Authorise 
+                                        script(src='/js/validator.js')
+                                        button.w-100.btn.btn-outline-primary(type='submit') Henshin!
+
         script(
             src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js' 
             crossorigin='anonymous'

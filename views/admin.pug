@@ -1,0 +1,55 @@
+extends _layout
+
+block content 
+    h1.mt-4.mb-3.text-center #{title}
+    if mashimaros == undefined || mashimaros.length <= 0
+        div.d-flex.justify-content-center.align-items-center(style='min-height: 300px')
+            div.text-secondary 没有收到新的棉花糖
+    else 
+        each mashimaro in mashimaros 
+            div.col-12.mb-4
+                div.card
+                    ul.list-group.list-group-flush 
+                        li.list-group-item 
+                            p.my-1
+                                small 🏷️ 
+                                 small.text-secondary.font-monospace ID: #{mashimaro.id} 
+                        li.list-group-item 
+                            p.my-1 
+                                small.text-secondary.font-monospace 💬 From: 
+                                small.text-primary #{mashimaro.author} 
+                                small.text-secondary
+                                    small ( 注意: 昵称不可信 )
+                            p.my-2 #{mashimaro.content}
+                        if mashimaro.answer
+                            li.list-group-item 
+                                small.my-1.text-secondary.font-monospace 🎈 Answer: 
+                                p.my-2 #{mashimaro.answer}
+                        li.list-group-item.text-center
+                            button.btn.btn-outline-success.mx-2 ✒️ 回复
+                            button.btn.btn-outline-primary.mx-2 🍜 已读
+                            button.btn.btn-outline-danger.mx-2 🗑️ 删除
+        nav
+            ul.pagination.justify-content-center
+                - var page = parseInt(pageNumber, 10)
+                - var total = parseInt(pageTotal, 10)
+                if page > 1
+                    li.page-item
+                        a.page-link(href=`/me?key=${userKey}&page=${page - 1}`) &laquo;
+                if page - 2 > 0
+                    li.page-item
+                        a.page-link(href=`/me?key=${userKey}&page=${page - 2}`) #{page - 2}
+                if page - 1 > 0
+                    li.page-item
+                        a.page-link(href=`/me?key=${userKey}&page=${page - 1}`) #{page - 1}
+                li.page-item.disabled
+                    a.page-link #{page}
+                if page + 1 <= total 
+                    li.page-item
+                        a.page-link(href=`/me?key=${userKey}&page=${page + 1}`) #{page + 1}
+                if page + 2 <= total 
+                    li.page-item
+                        a.page-link(href=`/me?key=${userKey}&page=${page + 2}`) #{page + 2}
+                if page < total
+                    li.page-item
+                        a.page-link(href=`/me?key=${userKey}&page=${page + 1}`) &raquo;

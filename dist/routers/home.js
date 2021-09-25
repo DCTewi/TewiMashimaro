@@ -33,6 +33,7 @@ exports.homeRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, funct
     const endCount = startCount + capacity;
     const answeredMashimaros = (yield (0, database_1.db)().get()).filter(m => m.answer != undefined);
     res.render('home', {
+        siteName: (0, configuration_1.config)().siteName,
         title: (0, configuration_1.config)().siteName,
         description: (0, configuration_1.config)().description,
         headerImage: (0, configuration_1.config)().headerImageUrl,
@@ -40,7 +41,7 @@ exports.homeRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, funct
         answeredMashimaros: answeredMashimaros.slice(startCount, endCount),
         mashimaroStatus: mashimaroStatus,
         pageNumber: pageNumber,
-        pageTotal: Math.max(answeredMashimaros.length / capacity, 1)
+        pageTotal: Math.max(Math.ceil(answeredMashimaros.length / capacity), 1)
     });
 }));
 exports.homeRouter.post('', (req, res) => {

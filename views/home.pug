@@ -8,51 +8,64 @@ block content
     if mashimaroStatus 
         case mashimaroStatus
             when '0'
-                .alert.alert-success.alert-dismissible.fade.show(role='alert') 棉花糖发射成功!
+                .alert.alert-success.alert-dismissible.fade.show(role='alert') 👌 棉花糖发射成功!
                     button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
             when '1'
-                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 棉花糖接收冷却中！请稍后再发送！
+                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🕑 棉花糖接收冷却中！请稍后再发送！
                     button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
             when '2'
-                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 棉花糖出现未知错误！怎么会是呢？
+                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🤔 棉花糖出现未知错误！怎么会是呢？
                     button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
             when '3'
-                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 棉花糖不完整！请不要用脚本填写哦~
+                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🙏 棉花糖不完整！请不要用脚本填写哦~
                     button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
     form.needs-validation.mb-3(method='post' novalidate)
-        .form-floating.mb-3
+        div.form-floating.mb-3
             input#floatingNickname.form-control(type='text' name='author' placeholder='无名氏' value='无名氏' required)
-            label(for='floatingNickname') 你的昵称
-            .invalid-feedback 请填写你的昵称
-        .form-floating.mb-3
+            label(for='floatingNickname') 🏷️ 你的昵称
+            .invalid-feedback 💦 请填写你的昵称
+        div.form-floating.mb-3
             textarea#floatingTextarea.form-control(placeholder='棉花糖内容' name='content' style='height: 200px' required)
-            label(for='floatingTextarea') 棉花糖内容
-            .invalid-feedback 请填写棉花糖内容
+            label(for='floatingTextarea') 💬 棉花糖内容
+            .invalid-feedback 💦 请填写棉花糖内容
         input(type='hidden' name='_csrf' value=csrfToken)
         script(src='/js/validator.js')
-        button.w-100.btn.btn-primary.btn-lg(type='submit') 发射
+        button.w-100.btn.btn-outline-primary.btn-lg(type='submit') 💨 发射
     if answeredMashimaros && answeredMashimaros.length > 0
         hr.my-4
-        h4.mb-4 最近的回复
-        div.rows
-            each mashimaro in answeredMashimaros
-                div.col-12.mb-4
-                    div.card
-                        ul.list-group.list-group-flush
-                            li.list-group-item 
-                                h4.mt-2.mb-0 Q: 
-                                p.mb-0 #{mashimaro.content}
-                            li.list-group-item 
-                                h4.mb-0 A: 
-                                p.mb-2 #{mashimaro.answer}
-            nav
-                ul.pagination.justify-content-center
-                    if pageNumber > 1
-                        li.page-item
-                            a.page-link(href=`/?page=${parseInt(pageNumber, 10) - 1}`) &laquo;
-                    li.page-item.disabled
-                        a.page-link #{pageNumber}
-                    if pageNumber < pageTotal
-                        li.page-item
-                            a.page-link(href=`/?page=${parseInt(pageNumber, 10) + 1}`) &raquo;
+        h4.mb-4 📮 最近的回复
+        each mashimaro in answeredMashimaros
+            div.col-12.mb-4
+                div.card
+                    ul.list-group.list-group-flush
+                        li.list-group-item 
+                            small.my-1.text-secondary.font-monospace 💬 Mashimaro: 
+                            p.my-2 #{mashimaro.content}
+                        li.list-group-item 
+                            small.my-1.text-secondary.font-monospace 🎈 Answer: 
+                            p.my-2 #{mashimaro.answer}
+        nav
+            ul.pagination.justify-content-center
+                - var page = parseInt(pageNumber, 10)
+                - var total = parseInt(pageTotal, 10)
+                if page > 1
+                    li.page-item
+                        a.page-link(href=`/?page=${page - 1}`) &laquo;
+                if page - 2 > 0
+                    li.page-item
+                        a.page-link(href=`/?page=${page - 2}`) #{page - 2}
+                if page - 1 > 0
+                    li.page-item
+                        a.page-link(href=`/?page=${page - 1}`) #{page - 1}
+                li.page-item.disabled
+                    a.page-link #{page}
+                if page + 1 <= total 
+                    li.page-item
+                        a.page-link(href=`/?page=${page + 1}`) #{page + 1}
+                if page + 2 <= total 
+                    li.page-item
+                        a.page-link(href=`/?page=${page + 2}`) #{page + 2}
+                if page < total
+                    li.page-item
+                        a.page-link(href=`/?page=${page + 1}`) &raquo;
 
