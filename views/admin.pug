@@ -4,7 +4,7 @@ block content
     h1.mt-4.mb-3.text-center #{title}
     if mashimaros == undefined || mashimaros.length <= 0
         div.d-flex.justify-content-center.align-items-center(style='min-height: 300px')
-            div.text-secondary 没有收到新的棉花糖
+            div.text-secondary #{localizer.admin.none}
     else 
         each mashimaro in mashimaros 
             div.col-12.mb-4
@@ -15,7 +15,7 @@ block content
                                 small 🕑 
                                     small.text-secondary.font-monospace Time: #{new Date(mashimaro.time).toLocaleString('chinese', { hour12: false })} 
                                 if mashimaro.read
-                                    small.float-end.text-primary 🍜 已读
+                                    small.float-end.text-primary 🍜 #{localizer.admin.read}
                         li.list-group-item 
                             p.my-1
                                 small 🏷️ 
@@ -25,7 +25,7 @@ block content
                                 small.text-secondary.font-monospace 💬 From: 
                                 small.text-primary #{mashimaro.author} 
                                 small.text-secondary
-                                    small ( 注意: 昵称不可信 )
+                                    small ( #{localizer.admin.nickWarning} )
                             p.my-2 #{mashimaro.content}
                         if mashimaro.answer
                             li.list-group-item 
@@ -36,14 +36,14 @@ block content
                                 input(type='hidden' name='id' value=mashimaro.id)
                                 input(type='hidden' name='method' value='read')
                                 input(type='hidden' name='_csrf' value=`${csrfToken}`)
-                                button.btn.btn-outline-success.mx-2(type='button' data-bs-toggle="modal" data-bs-target="#answerModal" data-bs-id=mashimaro.id) ✒️ 回复
-                                button.btn.btn-outline-primary.mx-2(type='submit') 🍜 已读
-                                button.btn.btn-outline-danger.mx-2(type='button' data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-id=mashimaro.id) 🗑️ 删除
+                                button.btn.btn-outline-success.mx-2(type='button' data-bs-toggle="modal" data-bs-target="#answerModal" data-bs-id=mashimaro.id) ✒️ #{localizer.admin.answer}
+                                button.btn.btn-outline-primary.mx-2(type='submit') 🍜 #{localizer.admin.read}
+                                button.btn.btn-outline-danger.mx-2(type='button' data-bs-toggle="modal" data-bs-target="#deleteModal" data-bs-id=mashimaro.id) 🗑️ #{localizer.admin.delete}
         div#deleteModal.modal.fade(tabindex='5' aria-labelledby='deleteLabel')
             div.modal-dialog.modal-dialog-centered
                 div.modal-content
                     div.modal-header
-                        h5#deleteLabel.modal-title 🗑️ 删除
+                        h5#deleteLabel.modal-title 🗑️ #{localizer.admin.delete}
                         button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                     div.modal-body
                             form.needs-validation.mb-3(method='post' action=`/me?key=${userKey}` novalidate)
@@ -53,12 +53,12 @@ block content
                                 input(type='hidden' name='method' value='delete')
                                 input(type='hidden' name='_csrf' value=`${csrfToken}`)
                                 script(src='/js/validator.js')
-                                button.w-100.btn.btn-outline-danger(type='submit') 🗑️ 删除
+                                button.w-100.btn.btn-outline-danger(type='submit') 🗑️ #{localizer.admin.delete}
         div#answerModal.modal.fade(tabindex='5' aria-labelledby='answerLabel')
             div.modal-dialog.modal-dialog-centered
                 div.modal-content
                     div.modal-header
-                        h5#answerLabel.modal-title ✒️ 回复
+                        h5#answerLabel.modal-title ✒️ #{localizer.admin.answer}
                         button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                     div.modal-body
                             form.needs-validation.mb-3(method='post' action=`/me?key=${userKey}` novalidate)
@@ -66,12 +66,12 @@ block content
                                     input#floatingAnswerId.form-control(type='text' name='id' placeholder='id' required readonly)
                                     label(for='floatingAnswerId') 🏷️ ID 
                                 .form-floating.mb-3 
-                                    textarea#floatingAnswerTextarea.form-control(placeholder='回复内容' name='answer' style='height: 200px' required)
-                                    label(for='floatingAnswerTextarea') 💬 回复内容
+                                    textarea#floatingAnswerTextarea.form-control(placeholder='-' name='answer' style='height: 200px' required)
+                                    label(for='floatingAnswerTextarea') 💬 #{localizer.admin.answerContent}
                                 input(type='hidden' name='method' value='answer')
                                 input(type='hidden' name='_csrf' value=`${csrfToken}`)
                                 script(src='/js/validator.js')
-                                button.w-100.btn.btn-outline-success(type='submit') ✒️ 回复
+                                button.w-100.btn.btn-outline-success(type='submit') ✒️ #{localizer.admin.answer}
         script.
             var deleteModal = document.getElementById('deleteModal')
             deleteModal.addEventListener('show.bs.modal', function (event) {

@@ -33,7 +33,9 @@ adminRouter.get('', async (req, res) => {
 
             pageNumber: pageNumber,
             pageTotal: Math.max(Math.ceil(mashimaros.length / capacity), 1),
-            userKey: userKey
+            userKey: userKey,
+
+            localizer: req.localizer
         })
     } else {
         res.redirect('/')

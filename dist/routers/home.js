@@ -41,7 +41,8 @@ exports.homeRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, funct
         answeredMashimaros: answeredMashimaros.slice(startCount, endCount),
         mashimaroStatus: mashimaroStatus,
         pageNumber: pageNumber,
-        pageTotal: Math.max(Math.ceil(answeredMashimaros.length / capacity), 1)
+        pageTotal: Math.max(Math.ceil(answeredMashimaros.length / capacity), 1),
+        localizer: req.localizer
     });
 }));
 exports.homeRouter.post('', (req, res) => {

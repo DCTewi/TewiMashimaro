@@ -8,33 +8,36 @@ block content
     if mashimaroStatus 
         case mashimaroStatus
             when '0'
-                .alert.alert-success.alert-dismissible.fade.show(role='alert') 👌 棉花糖发射成功!
+                .alert.alert-success.alert-dismissible.fade.show(role='alert') 👌 #{localizer.alert[mashimaroStatus]}
                     button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
             when '1'
-                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🕑 棉花糖接收冷却中！请稍后再发送！
+                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🕑 #{localizer.alert[mashimaroStatus]}
                     button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
             when '2'
-                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🤔 棉花糖出现未知错误！怎么会是呢？
+                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🤔 #{localizer.alert[mashimaroStatus]}
                     button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
             when '3'
-                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🙏 棉花糖不完整！请不要用脚本填写哦~
+                .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🙏 #{localizer.alert[mashimaroStatus]}
                     button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
-        script(src='/js/clearQuery.js')
     form.needs-validation.mb-3(method='post' novalidate)
         div.form-floating.mb-3
-            input#floatingNickname.form-control(type='text' name='author' placeholder='无名氏' value='无名氏' required)
-            label(for='floatingNickname') 🏷️ 你的昵称
-            .invalid-feedback 💦 请填写你的昵称
+            input#floatingNickname.form-control(
+                type='text' name='author' 
+                placeholder=localizer.home.nicknamePlaceholder 
+                value=localizer.home.nicknamePlaceholder required
+            )
+            label(for='floatingNickname') 🏷️ #{localizer.home.nickname}
+            .invalid-feedback 💦 #{localizer.home.invalidNickname}
         div.form-floating.mb-3
-            textarea#floatingTextarea.form-control(placeholder='棉花糖内容' name='content' style='height: 200px' required)
-            label(for='floatingTextarea') 💬 棉花糖内容
-            .invalid-feedback 💦 请填写棉花糖内容
+            textarea#floatingTextarea.form-control(placeholder='-' name='content' style='height: 200px' required)
+            label(for='floatingTextarea') 💬 #{localizer.home.mashimaro}
+            .invalid-feedback 💦 #{localizer.home.invalidContent}
         input(type='hidden' name='_csrf' value=csrfToken)
         script(src='/js/validator.js')
-        button.w-100.btn.btn-outline-primary.btn-lg(type='submit') 💨 发射
+        button.w-100.btn.btn-outline-primary.btn-lg(type='submit') 💨 #{localizer.home.send}
     if answeredMashimaros && answeredMashimaros.length > 0
         hr.my-4
-        h4.mb-4 📮 最近的回复
+        h4.mb-4 📮 #{localizer.home.recent}
         each mashimaro in answeredMashimaros
             div.col-12.mb-4
                 div.card

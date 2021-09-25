@@ -17,16 +17,11 @@ const csurf_1 = __importDefault(require("csurf"));
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
 const rotating_file_stream_1 = require("rotating-file-stream");
+const localizer_1 = require("./middlewares/localizer");
 const admin_1 = require("./routers/admin");
 const home_1 = require("./routers/home");
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        // let mashimaros = await db().get()
-        // for (let mashimaro of mashimaros) {
-        //     mashimaro.answer = "啊对对对，你说得对"
-        //     await db().update(mashimaro)
-        // }
-        // return
         const listenPort = 3000;
         const logstream = (0, rotating_file_stream_1.createStream)('access.log', {
             interval: '1d',
@@ -40,8 +35,9 @@ function main() {
         app.use(express_1.default.static('public'));
         app.use((0, morgan_1.default)(logtoken, { stream: logstream }));
         app.use((0, cookie_parser_1.default)());
+        app.use(localizer_1.localizer);
         app.use(express_1.default.urlencoded({ extended: true }));
-        app.use((0, csurf_1.default)({ cookie: true }));
+        app.use((0, csurf_1.default)({ cookie: { httpOnly: true, secure: true } }));
         app.use('', home_1.homeRouter);
         app.use('/me', admin_1.adminRouter);
         app.listen(listenPort, () => {

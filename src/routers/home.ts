@@ -37,7 +37,9 @@ homeRouter.get('', async (req, res) => {
         mashimaroStatus: mashimaroStatus,
 
         pageNumber: pageNumber,
-        pageTotal: Math.max(Math.ceil(answeredMashimaros.length / capacity), 1)
+        pageTotal: Math.max(Math.ceil(answeredMashimaros.length / capacity), 1),
+
+        localizer: req.localizer
     })
 })
 

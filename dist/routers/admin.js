@@ -37,7 +37,8 @@ exports.adminRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, func
             mashimaros: mashimaros.slice(startCount, endCount),
             pageNumber: pageNumber,
             pageTotal: Math.max(Math.ceil(mashimaros.length / capacity), 1),
-            userKey: userKey
+            userKey: userKey,
+            localizer: req.localizer
         });
     }
     else {
