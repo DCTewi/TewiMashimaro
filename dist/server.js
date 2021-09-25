@@ -29,7 +29,7 @@ exports._logToken = 'Req: :remote-addr [:date[iso]] ":method :url HTTP/:http-ver
 exports._staticDir = './public';
 exports._greenlockConfPath = './_greenlock';
 exports._greenlockPackageAgent = `${process.env.npm_package_name}/${process.env.npm_package_version}`;
-function main() {
+function main(debuged = false) {
     return __awaiter(this, void 0, void 0, function* () {
         const logstream = (0, rotating_file_stream_1.createStream)(exports._logName, {
             interval: '1d',
@@ -47,17 +47,24 @@ function main() {
         app.use((0, csurf_1.default)({ cookie: { httpOnly: true, secure: true } }));
         app.use('', home_1.homeRouter);
         app.use('/me', admin_1.adminRouter);
-        require("greenlock-express").init({
-            packageRoot: process.cwd(),
-            packageAgent: exports._greenlockPackageAgent,
-            configDir: exports._greenlockConfPath,
-            maintainerEmail: (0, configuration_1.config)().maintainerEmail,
-            notify: (ev, args) => {
-                console.info(ev, args);
-            },
-            cluster: false
-        }).serve(app);
+        if (!debuged) {
+            require("greenlock-express").init({
+                packageRoot: process.cwd(),
+                packageAgent: exports._greenlockPackageAgent,
+                configDir: exports._greenlockConfPath,
+                maintainerEmail: (0, configuration_1.config)().maintainerEmail,
+                notify: (ev, args) => {
+                    console.info(ev, args);
+                },
+                cluster: false
+            }).serve(app);
+        }
+        else {
+            app.listen(23456, () => {
+                console.log('Mashimaro debug mode start on port 23456');
+            });
+        }
     });
 }
-main();
+main(process.argv.includes('--debug'));
 //# sourceMappingURL=server.js.map

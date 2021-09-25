@@ -4,7 +4,8 @@
   "description": "Yet another mashimaro instance",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "test": "node dist/server.js --debug"
   },
   "bin": {
     "tewi-mashimaro": "dist/server.js",

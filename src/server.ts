@@ -17,7 +17,7 @@ export const _staticDir = './public'
 export const _greenlockConfPath = './_greenlock'
 export const _greenlockPackageAgent = `${process.env.npm_package_name}/${process.env.npm_package_version}`
 
-async function main(): Promise<void> {
+async function main(debuged: boolean = false): Promise<void> {
     const logstream = createStream(_logName, {
         interval: '1d',
         path: _logPath,
@@ -39,19 +39,25 @@ async function main(): Promise<void> {
     app.use('', homeRouter)
     app.use('/me', adminRouter)
 
-    require("greenlock-express").init({
-        packageRoot: process.cwd(),
-        packageAgent: _greenlockPackageAgent,
-        configDir: _greenlockConfPath,
+    if (!debuged) {
+        require("greenlock-express").init({
+            packageRoot: process.cwd(),
+            packageAgent: _greenlockPackageAgent,
+            configDir: _greenlockConfPath,
 
-        maintainerEmail: config().maintainerEmail,
+            maintainerEmail: config().maintainerEmail,
 
-        notify: (ev: any, args: any) => {
-            console.info(ev, args)
-        },
+            notify: (ev: any, args: any) => {
+                console.info(ev, args)
+            },
 
-        cluster: false
-    }).serve(app)
+            cluster: false
+        }).serve(app)
+    } else {
+        app.listen(23456, () => {
+            console.log('Mashimaro debug mode start on port 23456')
+        })
+    }
 }
 
-main()
+main(process.argv.includes('--debug'))
