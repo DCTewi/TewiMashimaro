@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { config } from "../utils/configuration";
 import { db, Mashimaro } from "../utils/database";
+import chalk from "chalk"
 
 export const homeRouter = Router()
 
@@ -14,7 +15,7 @@ enum MashimaroStatus {
 let nextMashimaroTime = new Date(new Date().getTime() - 60000 / config().frequencyLimitPerMinute)
 
 homeRouter.get('', async (req, res) => {
-    console.log('GET home', req.protocol)
+    console.log(`[GET] ${chalk.green(req.url)} from ${chalk.yellow(req.ip)}`)
 
     let mashimaroStatus = req.query.status as MashimaroStatus | undefined
 
@@ -43,7 +44,8 @@ homeRouter.get('', async (req, res) => {
 })
 
 homeRouter.post('', (req, res) => {
-    console.log('POST home', req.body)
+    console.log(`[POST] ${chalk.green(req.url)} from ${chalk.yellow(req.ip)}`)
+    console.log(req.body)
 
     let status = MashimaroStatus.Invalid
 

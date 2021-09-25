@@ -8,11 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.homeRouter = void 0;
 const express_1 = require("express");
 const configuration_1 = require("../utils/configuration");
 const database_1 = require("../utils/database");
+const chalk_1 = __importDefault(require("chalk"));
 exports.homeRouter = (0, express_1.Router)();
 var MashimaroStatus;
 (function (MashimaroStatus) {
@@ -23,7 +27,7 @@ var MashimaroStatus;
 })(MashimaroStatus || (MashimaroStatus = {}));
 let nextMashimaroTime = new Date(new Date().getTime() - 60000 / (0, configuration_1.config)().frequencyLimitPerMinute);
 exports.homeRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log('GET home', req.protocol);
+    console.log(`[GET] ${chalk_1.default.green(req.url)} from ${chalk_1.default.yellow(req.ip)}`);
     let mashimaroStatus = req.query.status;
     let pageNumber = req.query.page;
     if (pageNumber == undefined || pageNumber < 1) {
@@ -45,7 +49,8 @@ exports.homeRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, funct
     });
 }));
 exports.homeRouter.post('', (req, res) => {
-    console.log('POST home', req.body);
+    console.log(`[POST] ${chalk_1.default.green(req.url)} from ${chalk_1.default.yellow(req.ip)}`);
+    console.log(req.body);
     let status = MashimaroStatus.Invalid;
     if ((0, configuration_1.config)().frequencyLimitPerMinute >= 0 && nextMashimaroTime > new Date()) {
         status = MashimaroStatus.Limited;

@@ -13,8 +13,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = exports.Mashimaro = void 0;
-const level_1 = __importDefault(require("level"));
 const uuid_1 = require("uuid");
+const level_1 = __importDefault(require("level"));
 class Mashimaro {
     constructor(author, content) {
         this.id = (0, uuid_1.v1)();
