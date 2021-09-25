@@ -70,10 +70,11 @@ const localizationDictionary: Record<Languages, Literals> = {
             "Unexpected form! Please emit mashimaro manually~",
         ],
         admin: {
-            answer: 'Answer',
+            answer: 'Re',
             answerContent: 'Answer Content',
             read: 'Read',
-            delete: 'Delete',
+            delete: 'Del',
+                     
             nickWarning: 'Warn: Nickname is untrustworthy',
             none: 'No mashimaro received'
         }

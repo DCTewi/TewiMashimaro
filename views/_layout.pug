@@ -14,9 +14,19 @@ html.h-100(lang="zh-CN")
             title #{siteName}
         else 
             title #{title} - #{siteName}
-        script(src='/js/clearQuery.js')
     body.d-flex.flex-column.h-100
+        script(src='/js/preload.js')
         main.flex-shrink-0
+            div.dropdown.float-end.mt-3.me-3
+                button#langSelector.btn.btn-sm.btn-outline-primary.dropdown-toggle(type='button' data-bs-toggle='dropdown' aria-expanded='false')
+                    | 🌏
+                ul.dropdown-menu(aria-labelledby='langSelector')
+                    li
+                        btn.dropdown-item(onclick='setlang("zh")') zh
+                    li
+                        btn.dropdown-item(onclick='setlang("en")') en
+                    li
+                        btn.dropdown-item(onclick='setlang("ja")') ja
             div.container
                 block content
         footer.footer.mt-auto.py-3.bg-light
