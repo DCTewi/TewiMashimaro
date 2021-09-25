@@ -1,15 +1,18 @@
 {
-  "name": "tewi-mashimaro",
+  "name": "@dctewi/mashimaro",
   "version": "1.0.0",
-  "description": "Yet another mashimaro instance",
+  "description": "Yet another mashimaro | 又一个棉花糖",
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/server.js",
     "test": "node dist/server.js --debug"
   },
   "bin": {
-    "tewi-mashimaro": "dist/server.js",
-    "tewi-mashimaro-domain": "dist/set-domain.js"
+    "mashimaro": "dist/server.js",
+    "mashimaro-domain": "dist/set-domain.js"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/DCTewi"
   },
   "repository": {
     "type": "git",
