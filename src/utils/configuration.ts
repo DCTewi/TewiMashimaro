@@ -1,5 +1,5 @@
 import fs from "fs"
-import { v1 } from "uuid"
+import { v4 } from "uuid"
 
 class Configuration {
     siteName: string
@@ -12,7 +12,7 @@ class Configuration {
     constructor() {
         this.siteName = "Tewi Mashimaro"
         this.description = "通过棉花糖来向我匿名提问!"
-        this.adminKey = v1()
+        this.adminKey = v4()
         this.frequencyLimitPerMinute = 2
         this.pageCapacity = 5
     }

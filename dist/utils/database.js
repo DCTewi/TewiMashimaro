@@ -17,7 +17,7 @@ const level_1 = __importDefault(require("level"));
 const uuid_1 = require("uuid");
 class Mashimaro {
     constructor(author, content) {
-        this.id = (0, uuid_1.v1)();
+        this.id = (0, uuid_1.v4)();
         this.author = author;
         this.content = content;
         this.time = new Date();

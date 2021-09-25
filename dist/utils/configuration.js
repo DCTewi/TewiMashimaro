@@ -10,7 +10,7 @@ class Configuration {
     constructor() {
         this.siteName = "Tewi Mashimaro";
         this.description = "通过棉花糖来向我匿名提问!";
-        this.adminKey = (0, uuid_1.v1)();
+        this.adminKey = (0, uuid_1.v4)();
         this.frequencyLimitPerMinute = 2;
         this.pageCapacity = 5;
     }

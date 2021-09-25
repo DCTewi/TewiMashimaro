@@ -1,5 +1,5 @@
 import Level from "level"
-import { v1 } from "uuid"
+import { v4 } from "uuid"
 
 export class Mashimaro {
     id: string
@@ -10,7 +10,7 @@ export class Mashimaro {
     answer?: string
 
     constructor(author: string, content: string) {
-        this.id = v1()
+        this.id = v4()
         this.author = author
         this.content = content
         this.time = new Date()
