@@ -1,5 +1,5 @@
-import { v1 } from "uuid"
 import Level from "level"
+import { v1 } from "uuid"
 
 export class Mashimaro {
     id: string

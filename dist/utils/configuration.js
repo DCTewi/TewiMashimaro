@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.setConfig = exports.config = void 0;
-const uuid_1 = require("uuid");
 const fs_1 = __importDefault(require("fs"));
+const uuid_1 = require("uuid");
 class Configuration {
     constructor() {
         this.siteName = "Tewi Mashimaro";

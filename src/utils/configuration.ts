@@ -1,5 +1,5 @@
-import { v1 } from "uuid"
 import fs from "fs"
+import { v1 } from "uuid"
 
 class Configuration {
     siteName: string
