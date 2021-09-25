@@ -13,6 +13,7 @@ class Configuration {
         this.adminKey = (0, uuid_1.v4)();
         this.frequencyLimitPerMinute = 2;
         this.pageCapacity = 5;
+        this.adminCapacity = 10;
     }
 }
 const configurationPath = "./config.json";

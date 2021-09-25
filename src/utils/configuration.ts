@@ -8,6 +8,7 @@ class Configuration {
     adminKey: string
     frequencyLimitPerMinute: number
     pageCapacity: number
+    adminCapacity: number
 
     constructor() {
         this.siteName = "Tewi Mashimaro"
@@ -15,6 +16,7 @@ class Configuration {
         this.adminKey = v4()
         this.frequencyLimitPerMinute = 2
         this.pageCapacity = 5
+        this.adminCapacity = 10
     }
 }
 
