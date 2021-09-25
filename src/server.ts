@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import cookieParser from "cookie-parser"
 import csurf from "csurf"
 import express from "express"
@@ -17,7 +15,7 @@ export const _staticDir = './public'
 export const _greenlockConfPath = './_greenlock'
 export const _greenlockPackageAgent = `${process.env.npm_package_name}/${process.env.npm_package_version}`
 
-async function main(debuged: boolean = false): Promise<void> {
+export async function main(debuged: boolean = false): Promise<void> {
     const logstream = createStream(_logName, {
         interval: '1d',
         path: _logPath,
@@ -59,5 +57,3 @@ async function main(debuged: boolean = false): Promise<void> {
         })
     }
 }
-
-main(process.argv.includes('--debug'))

@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -13,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports._greenlockPackageAgent = exports._greenlockConfPath = exports._staticDir = exports._logToken = exports._logPath = exports._logName = void 0;
+exports.main = exports._greenlockPackageAgent = exports._greenlockConfPath = exports._staticDir = exports._logToken = exports._logPath = exports._logName = void 0;
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const csurf_1 = __importDefault(require("csurf"));
 const express_1 = __importDefault(require("express"));
@@ -66,5 +65,5 @@ function main(debuged = false) {
         }
     });
 }
-main(process.argv.includes('--debug'));
+exports.main = main;
 //# sourceMappingURL=server.js.map
