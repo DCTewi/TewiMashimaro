@@ -1,5 +1,6 @@
 _db/
 _log/
+_greenlock
 node_modules/
 
 config.json

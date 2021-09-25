@@ -8,7 +8,10 @@
         "rootDir": "./src",
         "outDir": "./dist",
 
-        "typeRoots": ["@types"],
+        "typeRoots": [
+            "./types",
+            "./node_modules/@types"
+        ],
 
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
@@ -17,5 +20,5 @@
         "skipLibCheck": true
     },
     "exclude": ["./node_modules"],
-    "include": ["./src/**/*"]
+    "include": ["./src/**/*", "types/greenlock-express.d.ts"]
 }

@@ -4,19 +4,22 @@ import { v4 } from "uuid"
 class Configuration {
     siteName: string
     description: string
-    headerImageUrl?: URL
-    adminKey: string
+    headerImageUrl: string
     frequencyLimitPerMinute: number
     pageCapacity: number
     adminCapacity: number
+    adminKey: string
+    maintainerEmail: string
 
     constructor() {
         this.siteName = "Tewi Mashimaro"
         this.description = "通过棉花糖来向我匿名提问!"
-        this.adminKey = v4()
-        this.frequencyLimitPerMinute = 2
+        this.headerImageUrl = ''
+        this.frequencyLimitPerMinute = 6
         this.pageCapacity = 5
         this.adminCapacity = 10
+        this.adminKey = v4()
+        this.maintainerEmail = "john@doe.com"
     }
 }
 

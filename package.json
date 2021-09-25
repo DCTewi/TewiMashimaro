@@ -4,7 +4,11 @@
   "description": "Yet another mashimaro instance",
   "main": "dist/index.js",
   "scripts": {
-    "start": "node dist/index.js"
+    "start": "node dist/server.js"
+  },
+  "bin": {
+    "tewi-mashimaro": "dist/server.js",
+    "tewi-mashimaro-domain": "dist/set-domain.js"
   },
   "repository": {
     "type": "git",
@@ -16,10 +20,12 @@
   "author": "DCTewi",
   "license": "MIT",
   "dependencies": {
+    "async": "^3.2.1",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "greenlock-express": "^4.0.3",
     "level": "^7.0.0",
     "morgan": "^1.10.0",
     "pug": "^3.0.2",
@@ -27,6 +33,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/async": "^3.2.8",
     "@types/cookie-parser": "^1.4.2",
     "@types/csurf": "^1.11.2",
     "@types/express": "^4.17.13",
