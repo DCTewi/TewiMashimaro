@@ -23,7 +23,7 @@ var MashimaroStatus;
 })(MashimaroStatus || (MashimaroStatus = {}));
 let nextMashimaroTime = new Date(new Date().getTime() - 60000 / (0, configuration_1.config)().frequencyLimitPerMinute);
 exports.homeRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.protocol);
+    console.log('GET home', req.protocol);
     let mashimaroStatus = req.query.status;
     let pageNumber = req.query.page;
     if (pageNumber == undefined || pageNumber < 1) {
@@ -45,10 +45,9 @@ exports.homeRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, funct
     });
 }));
 exports.homeRouter.post('', (req, res) => {
-    console.log('post', req.body);
+    console.log('POST home', req.body);
     let status = MashimaroStatus.Invalid;
-    console.log(nextMashimaroTime, new Date());
-    if (nextMashimaroTime > new Date()) {
+    if ((0, configuration_1.config)().frequencyLimitPerMinute >= 0 && nextMashimaroTime > new Date()) {
         status = MashimaroStatus.Limited;
     }
     else {

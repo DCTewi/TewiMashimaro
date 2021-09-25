@@ -14,7 +14,7 @@ enum MashimaroStatus {
 let nextMashimaroTime = new Date(new Date().getTime() - 60000 / config().frequencyLimitPerMinute)
 
 homeRouter.get('', async (req, res) => {
-    console.log(req.protocol)
+    console.log('GET home', req.protocol)
 
     let mashimaroStatus = req.query.status as MashimaroStatus | undefined
 
@@ -43,13 +43,11 @@ homeRouter.get('', async (req, res) => {
 })
 
 homeRouter.post('', (req, res) => {
-    console.log('post', req.body)
+    console.log('POST home', req.body)
 
     let status = MashimaroStatus.Invalid
 
-    console.log(nextMashimaroTime, new Date())
-
-    if (nextMashimaroTime > new Date()) {
+    if (config().frequencyLimitPerMinute >= 0 && nextMashimaroTime > new Date()) {
         status = MashimaroStatus.Limited
     } else {
         const author = req.body.author as string | undefined
