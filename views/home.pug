@@ -19,6 +19,7 @@ block content
             when '3'
                 .alert.alert-danger.alert-dismissible.fade.show(role='alert') 🙏 棉花糖不完整！请不要用脚本填写哦~
                     button.btn-close(type='button' data-bs-dismiss='alert' aria-label='Close')
+        script(src='/js/clearQuery.js')
     form.needs-validation.mb-3(method='post' novalidate)
         div.form-floating.mb-3
             input#floatingNickname.form-control(type='text' name='author' placeholder='无名氏' value='无名氏' required)

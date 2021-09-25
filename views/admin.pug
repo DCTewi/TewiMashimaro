@@ -49,7 +49,7 @@ block content
                             form.needs-validation.mb-3(method='post' action=`/me?key=${userKey}` novalidate)
                                 .form-floating.mb-3
                                     input#floatingDeleteId.form-control(type='text' name='id' placeholder='id' required readonly)
-                                    label(for='floatingDeleteId') ID 
+                                    label(for='floatingDeleteId') 🏷️ ID 
                                 input(type='hidden' name='method' value='delete')
                                 input(type='hidden' name='_csrf' value=`${csrfToken}`)
                                 script(src='/js/validator.js')
@@ -64,10 +64,10 @@ block content
                             form.needs-validation.mb-3(method='post' action=`/me?key=${userKey}` novalidate)
                                 .form-floating.mb-3
                                     input#floatingAnswerId.form-control(type='text' name='id' placeholder='id' required readonly)
-                                    label(for='floatingAnswerId') ID 
+                                    label(for='floatingAnswerId') 🏷️ ID 
                                 .form-floating.mb-3 
                                     textarea#floatingAnswerTextarea.form-control(placeholder='回复内容' name='answer' style='height: 200px' required)
-                                    label(for='floatingAnswerTextarea') 回复内容
+                                    label(for='floatingAnswerTextarea') 💬 回复内容
                                 input(type='hidden' name='method' value='answer')
                                 input(type='hidden' name='_csrf' value=`${csrfToken}`)
                                 script(src='/js/validator.js')
