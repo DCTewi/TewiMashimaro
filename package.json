@@ -1,49 +1,49 @@
 {
-  "name": "@dctewi/mashimaro",
-  "version": "1.0.3",
-  "description": "Yet another mashimaro | 又一个棉花糖",
-  "main": "dist/index.js",
-  "scripts": {
-    "test": "node dist/index.js -d ./_app"
-  },
-  "bin": {
-    "mashimaro": "dist/index.js"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/DCTewi"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DCTewi/TewiMashimaro"
-  },
-  "keywords": [
-    "web"
-  ],
-  "author": "DCTewi",
-  "license": "MIT",
-  "dependencies": {
-    "async": "^3.2.1",
-    "cookie-parser": "^1.4.5",
-    "csurf": "^1.11.0",
-    "express": "^4.17.1",
-    "fs": "0.0.1-security",
-    "level": "^7.0.0",
-    "morgan": "^1.10.0",
-    "path": "^0.12.7",
-    "pug": "^3.0.2",
-    "rotating-file-stream": "^2.1.5",
-    "uuid": "^8.3.2",
-    "yargs": "^17.2.1"
-  },
-  "devDependencies": {
-    "@types/async": "^3.2.8",
-    "@types/cookie-parser": "^1.4.2",
-    "@types/csurf": "^1.11.2",
-    "@types/express": "^4.17.13",
-    "@types/level": "^6.0.0",
-    "@types/morgan": "^1.9.3",
-    "@types/pug": "^2.0.5",
-    "@types/uuid": "^8.3.1",
-    "@types/yargs": "^17.0.3"
-  }
+    "name": "@dctewi/mashimaro",
+    "version": "1.0.3",
+    "description": "Yet another mashimaro | 又一个棉花糖",
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "node dist/index.js -d ./_app"
+    },
+    "bin": {
+        "mashimaro": "dist/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DCTewi/TewiMashimaro"
+    },
+    "keywords": [
+        "web"
+    ],
+    "author": "DCTewi",
+    "license": "MIT",
+    "dependencies": {
+        "async": "^3.2.1",
+        "cookie-parser": "^1.4.5",
+        "csurf": "^1.11.0",
+        "express": "^4.17.1",
+        "fs": "0.0.1-security",
+        "level": "^7.0.0",
+        "morgan": "^1.10.0",
+        "path": "^0.12.7",
+        "pug": "^3.0.2",
+        "rotating-file-stream": "^2.1.5",
+        "uuid": "^8.3.2",
+        "yargs": "^17.2.1"
+    },
+    "devDependencies": {
+        "@types/async": "^3.2.8",
+        "@types/cookie-parser": "^1.4.2",
+        "@types/csurf": "^1.11.2",
+        "@types/express": "^4.17.13",
+        "@types/level": "^6.0.0",
+        "@types/morgan": "^1.9.3",
+        "@types/pug": "^2.0.5",
+        "@types/uuid": "^8.3.1",
+        "@types/yargs": "^17.0.3"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/DCTewi"
+    }
 }
