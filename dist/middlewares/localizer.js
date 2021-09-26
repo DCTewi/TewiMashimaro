@@ -87,7 +87,6 @@ const localizationDictionary = {
 const _lang_key = 'lang';
 const localizer = (req, res, next) => {
     const queryLanguage = Languages[req.query.lang];
-    console.log('query:', queryLanguage);
     if (queryLanguage != undefined) {
         res.cookie(_lang_key, queryLanguage, { httpOnly: true, secure: true });
         req.cookies.lang = queryLanguage;

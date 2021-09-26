@@ -1,5 +1,6 @@
 import fs from "fs"
 import { v4 } from "uuid"
+import { resolvedPath } from "./pathresolver"
 
 class Configuration {
     siteName: string
@@ -9,7 +10,6 @@ class Configuration {
     pageCapacity: number
     adminCapacity: number
     adminKey: string
-    maintainerEmail: string
 
     constructor() {
         this.siteName = "Tewi Mashimaro"
@@ -19,7 +19,6 @@ class Configuration {
         this.pageCapacity = 5
         this.adminCapacity = 10
         this.adminKey = v4()
-        this.maintainerEmail = "john@doe.com"
     }
 }
 
@@ -27,15 +26,15 @@ const configurationPath = "./config.json"
 
 export const config = (): Configuration => {
     try {
-        const raw = fs.readFileSync(configurationPath, 'utf-8')
+        const raw = fs.readFileSync(resolvedPath(configurationPath), 'utf-8')
         let conf = JSON.parse(raw) as Configuration
         return conf
     } catch {
-        fs.writeFileSync(configurationPath, JSON.stringify(new Configuration(), null, 4), 'utf-8')
+        fs.writeFileSync(resolvedPath(configurationPath), JSON.stringify(new Configuration(), null, 4), 'utf-8')
         return new Configuration()
     }
 }
 
 export const setConfig = (config: Configuration) => {
-    fs.writeFileSync(configurationPath, JSON.stringify(config, null, 4), 'utf-8')
+    fs.writeFileSync(resolvedPath(configurationPath), JSON.stringify(config, null, 4), 'utf-8')
 }

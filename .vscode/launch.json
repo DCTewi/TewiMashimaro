@@ -2,10 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "npm start",
-            "name": "Run npm start",
+            "command": "npm test",
+            "name": "Run npm test",
             "request": "launch",
-            "type": "node-terminal"
+            "type": "node-terminal",
+            "serverReadyAction":{
+                "action": "debugWithEdge",
+                "pattern": "Mashimaro start on port ([0-9]+)",
+                "uriFormat": "http://localhost:%s",
+                "webRoot": "${workspaceFolder}"
+            }
         }
     ]
 }

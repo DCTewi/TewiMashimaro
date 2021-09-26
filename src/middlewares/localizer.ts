@@ -111,8 +111,6 @@ const _lang_key = 'lang'
 export const localizer: RequestHandler = (req, res, next) => {
     const queryLanguage = Languages[req.query.lang as Languages]
 
-    console.log('query:', queryLanguage)
-
     if (queryLanguage != undefined) {
         res.cookie(_lang_key, queryLanguage, { httpOnly: true, secure: true })
         req.cookies.lang = queryLanguage

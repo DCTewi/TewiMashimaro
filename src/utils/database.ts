@@ -1,5 +1,8 @@
 import Level from "level"
 import { v4 } from "uuid"
+import { resolvedPath } from "./pathresolver"
+
+const relativeDbPath = './_db'
 
 export class Mashimaro {
     id: string
@@ -40,7 +43,7 @@ class DbContext {
             DbContext._instance = this
         }
 
-        this._db = Level('./_db', { valueEncoding: 'json' })
+        this._db = Level(resolvedPath(relativeDbPath), { valueEncoding: 'json' })
     }
 
     async get(): Promise<Mashimaro[]> {

@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = exports.Mashimaro = void 0;
 const level_1 = __importDefault(require("level"));
 const uuid_1 = require("uuid");
+const pathresolver_1 = require("./pathresolver");
+const relativeDbPath = './_db';
 class Mashimaro {
     constructor(author, content) {
         this.id = (0, uuid_1.v4)();
@@ -34,7 +36,7 @@ class DbContext {
         else {
             DbContext._instance = this;
         }
-        this._db = (0, level_1.default)('./_db', { valueEncoding: 'json' });
+        this._db = (0, level_1.default)((0, pathresolver_1.resolvedPath)(relativeDbPath), { valueEncoding: 'json' });
     }
     static instance() {
         if (DbContext._instance == undefined) {

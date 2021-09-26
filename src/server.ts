@@ -7,53 +7,48 @@ import { localizer } from "./middlewares/localizer"
 import { adminRouter } from "./routers/admin"
 import { homeRouter } from "./routers/home"
 import { config } from "./utils/configuration"
+import { db } from "./utils/database"
+import { resolvedPath, setRootPath } from "./utils/pathresolver"
 
-export const _logName = 'access.log'
-export const _logPath = './_log'
-export const _logToken = 'Req: :remote-addr [:date[iso]] ":method :url HTTP/:http-version" :status\nAgent: ":user-agent"\n'
-export const _staticDir = './public'
-export const _greenlockConfPath = './_greenlock'
-export const _greenlockPackageAgent = `${process.env.npm_package_name}/${process.env.npm_package_version}`
+const _logName = 'access.log'
+const _logPath = './_log'
+const _logToken = 'Req: :remote-addr [:date[iso]] ":method :url HTTP/:http-version" :status\nAgent: ":user-agent"\n'
+const _staticDir = './public'
 
-export async function main(debuged: boolean = false): Promise<void> {
-    const logstream = createStream(_logName, {
-        interval: '1d',
-        path: _logPath,
-        encoding: 'utf-8',
-        teeToStdout: true
-    })
+export const server = {
+    deploy: (dir: string, port: number, openLog: boolean) => {
+        setRootPath(dir)
+        /* ensure exists */ {
+            db().get()
+            config()
+        }
 
-    const app: express.Express = express()
+        const app: express.Express = express()
 
-    app.set('view engine', 'pug')
-    
-    app.use(express.static(_staticDir))
-    app.use(morgan(_logToken, { stream: logstream }))
-    app.use(cookieParser())
-    app.use(localizer)
-    app.use(express.urlencoded({ extended: true }))
-    app.use(csurf({ cookie: { httpOnly: true, secure: true } }))
+        app.set('view engine', 'pug')
 
-    app.use('', homeRouter)
-    app.use('/me', adminRouter)
+        app.use(express.static(resolvedPath(_staticDir)))
 
-    if (!debuged) {
-        require("greenlock-express").init({
-            packageRoot: process.cwd(),
-            packageAgent: _greenlockPackageAgent,
-            configDir: _greenlockConfPath,
+        if (openLog) {
+            const logstream = createStream(_logName, {
+                interval: '1d',
+                path: resolvedPath(_logPath),
+                encoding: 'utf-8',
+                teeToStdout: true
+            })
+            app.use(morgan(_logToken, { stream: logstream }))
+        }
 
-            maintainerEmail: config().maintainerEmail,
+        app.use(cookieParser())
+        app.use(localizer)
+        app.use(express.urlencoded({ extended: true }))
+        app.use(csurf({ cookie: { httpOnly: true, secure: true } }))
 
-            notify: (ev: any, args: any) => {
-                console.info(ev, args)
-            },
+        app.use('', homeRouter)
+        app.use('/me', adminRouter)
 
-            cluster: false
-        }).serve(app)
-    } else {
-        app.listen(23456, () => {
-            console.log('Mashimaro debug mode start on port 23456')
+        app.listen(port, () => {
+            console.log(`Mashimaro start on port ${port}`)
         })
     }
 }
