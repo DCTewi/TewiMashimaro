@@ -111,14 +111,16 @@ const _lang_key = 'lang'
 export const localizer: RequestHandler = (req, res, next) => {
     const queryLanguage = Languages[req.query.lang as Languages]
 
+    const isSSL = req.protocol == 'http' ? false : true
+
     if (queryLanguage != undefined) {
-        res.cookie(_lang_key, queryLanguage, { httpOnly: true, secure: true })
+        res.cookie(_lang_key, queryLanguage, { httpOnly: true, secure: isSSL })
         req.cookies.lang = queryLanguage
     }
 
     const currentLanguage = Languages[req.cookies.lang as Languages]
     if (currentLanguage == undefined) {
-        res.cookie(_lang_key, Languages.zh, { httpOnly: true, secure: true })
+        res.cookie(_lang_key, Languages.zh, { httpOnly: true, secure: isSSL })
         req.localizer = localizationDictionary[Languages.zh]
     } else {
         req.localizer = localizationDictionary[currentLanguage]

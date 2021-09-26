@@ -1,0 +1,15 @@
+[Unit]
+Description=TewiMashimaro
+
+[Service]
+WorkingDirectory=/home/mashimaro
+ExecStart=/usr/bin/env mashimaro -d /home/mashimaro
+Restart=always
+RestartSec=10
+SyslogIdentifier=tewi-mashimaro
+KillSignal=SIGINT
+User=root
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

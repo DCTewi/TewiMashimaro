@@ -2,6 +2,7 @@ import cookieParser from "cookie-parser"
 import csurf from "csurf"
 import express from "express"
 import morgan from "morgan"
+import path from "path"
 import { createStream } from "rotating-file-stream"
 import { localizer } from "./middlewares/localizer"
 import { adminRouter } from "./routers/admin"
@@ -13,10 +14,10 @@ import { resolvedPath, setRootPath } from "./utils/pathresolver"
 const _logName = 'access.log'
 const _logPath = './_log'
 const _logToken = 'Req: :remote-addr [:date[iso]] ":method :url HTTP/:http-version" :status\nAgent: ":user-agent"\n'
-const _staticDir = './public'
+const _staticDir = '../public'
 
 export const server = {
-    deploy: (dir: string, port: number, openLog: boolean) => {
+    deploy: (dir: string, port: number, openLog: boolean, useSSL: boolean) => {
         setRootPath(dir)
         /* ensure exists */ {
             db().get()
@@ -27,7 +28,7 @@ export const server = {
 
         app.set('view engine', 'pug')
 
-        app.use(express.static(resolvedPath(_staticDir)))
+        app.use(express.static(path.resolve(__dirname, _staticDir)))
 
         if (openLog) {
             const logstream = createStream(_logName, {
@@ -42,7 +43,7 @@ export const server = {
         app.use(cookieParser())
         app.use(localizer)
         app.use(express.urlencoded({ extended: true }))
-        app.use(csurf({ cookie: { httpOnly: true, secure: true } }))
+        app.use(csurf({ cookie: { httpOnly: true, secure: useSSL } }))
 
         app.use('', homeRouter)
         app.use('/me', adminRouter)

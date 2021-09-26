@@ -87,13 +87,14 @@ const localizationDictionary = {
 const _lang_key = 'lang';
 const localizer = (req, res, next) => {
     const queryLanguage = Languages[req.query.lang];
+    const isSSL = req.protocol == 'http' ? false : true;
     if (queryLanguage != undefined) {
-        res.cookie(_lang_key, queryLanguage, { httpOnly: true, secure: true });
+        res.cookie(_lang_key, queryLanguage, { httpOnly: true, secure: isSSL });
         req.cookies.lang = queryLanguage;
     }
     const currentLanguage = Languages[req.cookies.lang];
     if (currentLanguage == undefined) {
-        res.cookie(_lang_key, Languages.zh, { httpOnly: true, secure: true });
+        res.cookie(_lang_key, Languages.zh, { httpOnly: true, secure: isSSL });
         req.localizer = localizationDictionary[Languages.zh];
     }
     else {

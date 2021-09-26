@@ -24,11 +24,16 @@ const main = () => {
                 default: true,
                 description: '是否记录访问日志'
             },
+            ssl: {
+                type: 'boolean',
+                default: false,
+                description: '是否启用SSL(证书请放置在启动位置下cert.key/pem)'
+            }
         })
         .help()
         .parseSync()
 
-    server.deploy(args.dir, args.port, args.log)
+    server.deploy(args.dir, args.port, args.log, args.ssl)
 }
 
 main()
