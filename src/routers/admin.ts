@@ -1,4 +1,5 @@
 import { Router } from "express";
+import path from "path";
 import { config } from "../utils/configuration";
 import { db } from "../utils/database";
 
@@ -24,7 +25,7 @@ adminRouter.get('', async (req, res) => {
         const startCount = capacity * (pageNumber - 1)
         const endCount = startCount + capacity
 
-        res.render('admin', {
+        res.render(path.resolve(__dirname, '../../views/admin.pug'), {
             siteName: config().siteName,
             title: 'Dashboard',
 

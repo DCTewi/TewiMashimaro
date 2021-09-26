@@ -1,6 +1,6 @@
 {
-    "name": "@dctewi/mashimaro",
-    "version": "1.0.3",
+    "name": "@dctewi/tewi-mashimaro",
+    "version": "1.0.1",
     "description": "Yet another mashimaro | 又一个棉花糖",
     "main": "dist/index.js",
     "scripts": {

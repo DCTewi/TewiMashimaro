@@ -1,4 +1,5 @@
 import { Router } from "express";
+import path from "path";
 import { config } from "../utils/configuration";
 import { db, Mashimaro } from "../utils/database";
 
@@ -25,7 +26,7 @@ homeRouter.get('', async (req, res) => {
     const endCount = startCount + capacity
     const answeredMashimaros = (await db().get()).filter(m => m.answer != undefined)
 
-    res.render('home', {
+    res.render(path.resolve(__dirname, '../../views/home.pug'), {
         siteName: config().siteName,
         title: config().siteName,
         description: config().description,
