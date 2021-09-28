@@ -23,9 +23,7 @@ export interface ServerArgs {
     dir: string,
     recordLog: boolean,
     enableSSL: boolean,
-    crt: string,
-    key: string,
-    ca: string,
+    port: number
 }
 
 export const server = {
@@ -60,31 +58,9 @@ export const server = {
         app.use('', homeRouter)
         app.use('/me', adminRouter)
 
+        app.listen(arg.port, () => {
+            console.log(`Mashimaro start on port ${arg.port}`)
+        })
 
-        if (arg.enableSSL) {
-            https
-                .createServer({
-                    ca: fs.readFileSync(arg.ca, 'utf-8'),
-                    key: fs.readFileSync(arg.key, 'utf-8'),
-                    cert: fs.readFileSync(arg.crt, 'utf-8'),
-                }, app)
-                .listen(443)
-
-            http
-                .createServer((req, res) => {
-                    res.writeHead(301, {
-                        Location: `https://${req.headers.host}${req.url}`
-                    })
-                    res.end()
-                })
-                .listen(80)
-
-
-            console.log(`Mashimaro start on port 443`)
-        } else {
-            app.listen(80, () => {
-                console.log(`Mashimaro start on port 80`)
-            })
-        }
     }
 }

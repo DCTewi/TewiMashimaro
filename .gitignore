@@ -3,4 +3,6 @@ _db/
 _log/
 node_modules/
 
+.npmrc_bak
 config.json
+*.js.map
