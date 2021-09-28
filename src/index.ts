@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import yargs, { boolean } from "yargs";
+import yargs from "yargs";
 import { server, ServerArgs } from "./server";
 
 const main = () => {

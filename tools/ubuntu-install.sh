@@ -121,4 +121,8 @@ echo '--------------------'
 
 logo
 
+sudo mashimaro-config
+
 echo Try to access your mashimaro on $DOMAIN !
+echo
+echo Run \"mashimaro-config\" to show mashimaro config !

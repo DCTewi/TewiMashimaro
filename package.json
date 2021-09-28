@@ -1,13 +1,14 @@
 {
     "name": "@dctewi/tewi-mashimaro",
-    "version": "1.0.3",
+    "version": "1.0.9",
     "description": "Yet another mashimaro | 又一个棉花糖",
     "main": "dist/index.js",
     "scripts": {
         "test": "node dist/index.js -d ./_app"
     },
     "bin": {
-        "mashimaro": "dist/index.js"
+        "mashimaro": "dist/index.js",
+        "mashimaro-config": "dist/display-config.js"
     },
     "repository": {
         "type": "git",
@@ -24,7 +25,6 @@
         "express": "^4.17.1",
         "fs": "0.0.1-security",
         "http": "0.0.1-security",
-        "https": "^1.0.0",
         "level": "^7.0.0",
         "morgan": "^1.10.0",
         "path": "^0.12.7",
