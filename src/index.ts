@@ -18,35 +18,39 @@ const main = () => {
                 default: true,
                 description: '是否记录访问日志'
             },
-            cert: {
-                alias: 'c',
+            ca: {
                 type: 'string',
                 default: '',
-                description: 'SSL证书(.crt文件路径)'
+                description: 'SSL CA (chain)'
+            },
+            crt: {
+                type: 'string',
+                default: '',
+                description: 'SSL证书 (cert)'
             },
             key: {
-                alias: 'k',
                 type: 'string',
                 default: '',
-                description: 'SSL私钥(.key文件路径)'
+                description: 'SSL私钥 (key)'
             }
         })
         .help()
         .parseSync()
 
 
-    let useSSL = true
-    if (args.cert == undefined || args.cert == '' || args.key == undefined || args.key == '') {
+    let enableSSL = true
+    if (args.crt == undefined || args.crt == '' || args.key == undefined || args.key == '' || args.ca == undefined || args.ca == '') {
         console.warn("SSL配置有误, 将仅开启HTTP服务器")
-        useSSL = false
+        enableSSL = false
     }
 
     const serverarg: ServerArgs = {
         dir: args.dir,
         recordLog: args.log,
-        useSSL: useSSL,
-        cert: args.cert,
-        key: args.key
+        enableSSL: enableSSL,
+        ca: args.ca,
+        crt: args.crt,
+        key: args.key,
     }
 
     server.deploy(serverarg)

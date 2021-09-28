@@ -22,9 +22,10 @@ const _staticDir = '../public'
 export interface ServerArgs {
     dir: string,
     recordLog: boolean,
-    useSSL: boolean,
-    cert: string,
+    enableSSL: boolean,
+    crt: string,
     key: string,
+    ca: string,
 }
 
 export const server = {
@@ -54,26 +55,29 @@ export const server = {
         app.use(cookieParser())
         app.use(localizer)
         app.use(express.urlencoded({ extended: true }))
-        app.use(csurf({ cookie: { httpOnly: true, secure: arg.useSSL } }))
+        app.use(csurf({ cookie: { httpOnly: true, secure: arg.enableSSL } }))
 
         app.use('', homeRouter)
         app.use('/me', adminRouter)
 
 
-        if (arg.useSSL) {
-            const httpsOption = {
-                cert: fs.readFileSync(arg.cert, 'utf-8'),
-                key: fs.readFileSync(arg.key, 'utf-8')
-            }
-            const httpsServer = https.createServer(httpsOption, app)
-            const httpServer = http.createServer((req, res) => {
-                res.writeHead(302, {
-                    location: `https://${req.headers.host}${req.url}`
-                })
-            })
+        if (arg.enableSSL) {
+            https
+                .createServer({
+                    ca: fs.readFileSync(arg.ca, 'utf-8'),
+                    key: fs.readFileSync(arg.key, 'utf-8'),
+                    cert: fs.readFileSync(arg.crt, 'utf-8'),
+                }, app)
+                .listen(443)
 
-            httpServer.listen(80);
-            httpsServer.listen(443);
+            http
+                .createServer((req, res) => {
+                    res.writeHead(302, {
+                        location: `https://${req.headers.host}${req.url}`
+                    })
+                })
+                .listen(80)
+
 
             console.log(`Mashimaro start on port 443`)
         } else {

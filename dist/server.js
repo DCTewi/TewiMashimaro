@@ -45,22 +45,24 @@ exports.server = {
         app.use((0, cookie_parser_1.default)());
         app.use(localizer_1.localizer);
         app.use(express_1.default.urlencoded({ extended: true }));
-        app.use((0, csurf_1.default)({ cookie: { httpOnly: true, secure: arg.useSSL } }));
+        app.use((0, csurf_1.default)({ cookie: { httpOnly: true, secure: arg.enableSSL } }));
         app.use('', home_1.homeRouter);
         app.use('/me', admin_1.adminRouter);
-        if (arg.useSSL) {
-            const httpsOption = {
-                cert: fs_1.default.readFileSync(arg.cert, 'utf-8'),
-                key: fs_1.default.readFileSync(arg.key, 'utf-8')
-            };
-            const httpsServer = https_1.default.createServer(httpsOption, app);
-            const httpServer = http_1.default.createServer((req, res) => {
+        if (arg.enableSSL) {
+            https_1.default
+                .createServer({
+                ca: fs_1.default.readFileSync(arg.ca, 'utf-8'),
+                key: fs_1.default.readFileSync(arg.key, 'utf-8'),
+                cert: fs_1.default.readFileSync(arg.crt, 'utf-8'),
+            }, app)
+                .listen(443);
+            http_1.default
+                .createServer((req, res) => {
                 res.writeHead(302, {
                     location: `https://${req.headers.host}${req.url}`
                 });
-            });
-            httpServer.listen(80);
-            httpsServer.listen(443);
+            })
+                .listen(80);
             console.log(`Mashimaro start on port 443`);
         }
         else {

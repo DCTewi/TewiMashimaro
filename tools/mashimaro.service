@@ -3,7 +3,7 @@ Description=TewiMashimaro
 
 [Service]
 WorkingDirectory=/home/mashimaro
-ExecStart=/usr/bin/env mashimaro -d /home/mashimaro --cert="/etc/letsencrypt/live/__USER_DOMAIN__/fullchain.pem" --key="/etc/letsencrypt/live/__USER_DOMAIN__/privkey.pem"
+ExecStart=/usr/bin/env mashimaro -d /home/mashimaro --ca="/etc/letsencrypt/live/__USER_DOMAIN__/chain.pem" --crt="/etc/letsencrypt/live/__USER_DOMAIN__/cert.pem" --key="/etc/letsencrypt/live/__USER_DOMAIN__/privkey.pem"
 Restart=always
 RestartSec=10
 SyslogIdentifier=tewi-mashimaro
