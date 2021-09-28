@@ -54,7 +54,7 @@ echo '--------------------------'
 sudo npm install @dctewi/tewi-mashimaro -g
 
 sudo wget https://raw.githubusercontent.com/DCTewi/TewiMashimaro/main/tools/mashimaro.service
-sudo sed -i "s/__USER_DOMAIN__/$DOMAIN/g" mashimaro.service
+# sudo sed -i "s/__USER_DOMAIN__/$DOMAIN/g" mashimaro.service
 
 sudo mv mashimaro.service /etc/systemd/system/mashimaro.service
 sudo systemctl daemon-reload
@@ -83,11 +83,30 @@ echo '------------------'
 
 sudo certbot certonly --standalone --noninteractive --agree-tos -m john@doe.com -d $DOMAIN
 
-sudo sh -c 'printf "#!/bin/bash\n systemctl stop mashimaro\n" > /etc/letsencrypt/renewal-hooks/pre/mashimaro.sh'
-sudo sh -c 'printf "#!/bin/bash\n systemctl start mashimaro\n" > /etc/letsencrypt/renewal-hooks/post/mashimaro.sh'
+sudo sh -c 'printf "#!/bin/bash\nsystemctl stop mashimaro\n" > /etc/letsencrypt/renewal-hooks/pre/mashimaro.sh'
+sudo sh -c 'printf "#!/bin/bash\nsystemctl start mashimaro\n" > /etc/letsencrypt/renewal-hooks/post/mashimaro.sh'
 
 sudo chmod 755 /etc/letsencrypt/renewal-hooks/pre/mashimaro.sh
 sudo chmod 755 /etc/letsencrypt/renewal-hooks/post/mashimaro.sh
+
+echo '----------------------'
+echo '| NGINX INSTALLATION |'
+echo '----------------------'
+
+sudo apt install nginx -y
+sudo systemctl enable nginx
+sudo systemctl start nginx
+
+sudo rm /etc/nginx/sites-enabled/default
+
+sudo wget https://raw.githubusercontent.com/DCTewi/TewiMashimaro/main/tools/nginx/mashimaro.conf
+sudo sed -i "s/__USER_DOMAIN__/$DOMAIN/g" mashimaro.conf
+sudo mv mashimaro.conf /etc/nginx/sites-enabled/$DOMAIN
+
+sudo wget https://raw.githubusercontent.com/DCTewi/TewiMashimaro/main/tools/nginx/proxy.conf
+sudo mv proxy.conf /etc/nginx/conf.d/proxy.conf
+
+sudo nginx -s reload
 
 echo '--------------------'
 echo '| STARTING SERVICE |'

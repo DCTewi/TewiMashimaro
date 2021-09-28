@@ -18,7 +18,7 @@ const database_1 = require("./utils/database");
 const pathresolver_1 = require("./utils/pathresolver");
 const _logName = 'access.log';
 const _logPath = './_log';
-const _logToken = 'Req: :remote-addr [:date[iso]] ":method :url HTTP/:http-version" :status\nAgent: ":user-agent"\n';
+const _logToken = 'Req: [:date[iso]] ":method :url HTTP/:http-version" :status\nAgent: ":user-agent"\n';
 const _staticDir = '../public';
 exports.server = {
     deploy: (arg) => {
@@ -45,9 +45,16 @@ exports.server = {
         app.use((0, csurf_1.default)({ cookie: { httpOnly: true, secure: arg.enableSSL } }));
         app.use('', home_1.homeRouter);
         app.use('/me', admin_1.adminRouter);
-        app.listen(arg.port, () => {
-            console.log(`Mashimaro start on port ${arg.port}`);
-        });
+        if (arg.enableSSL) {
+            app.listen(arg.port, "127.0.0.1", () => {
+                console.log(`Mashimaro start on port ${arg.port}`);
+            });
+        }
+        else {
+            app.listen(arg.port, () => {
+                console.log(`Mashimaro start on port ${arg.port}`);
+            });
+        }
     }
 };
 //# sourceMappingURL=server.js.map

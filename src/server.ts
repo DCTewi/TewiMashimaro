@@ -16,7 +16,7 @@ import { resolvedPath, setRootPath } from "./utils/pathresolver"
 
 const _logName = 'access.log'
 const _logPath = './_log'
-const _logToken = 'Req: :remote-addr [:date[iso]] ":method :url HTTP/:http-version" :status\nAgent: ":user-agent"\n'
+const _logToken = 'Req: [:date[iso]] ":method :url HTTP/:http-version" :status\nAgent: ":user-agent"\n'
 const _staticDir = '../public'
 
 export interface ServerArgs {
@@ -58,9 +58,14 @@ export const server = {
         app.use('', homeRouter)
         app.use('/me', adminRouter)
 
-        app.listen(arg.port, () => {
-            console.log(`Mashimaro start on port ${arg.port}`)
-        })
-
+        if (arg.enableSSL) {
+            app.listen(arg.port, "127.0.0.1", () => {
+                console.log(`Mashimaro start on port ${arg.port}`)
+            })
+        } else {
+            app.listen(arg.port, () => {
+                console.log(`Mashimaro start on port ${arg.port}`)
+            })
+        }
     }
 }
