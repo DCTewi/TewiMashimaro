@@ -58,9 +58,10 @@ exports.server = {
                 .listen(443);
             http_1.default
                 .createServer((req, res) => {
-                res.writeHead(302, {
-                    location: `https://${req.headers.host}${req.url}`
+                res.writeHead(301, {
+                    Location: `https://${req.headers.host}${req.url}`
                 });
+                res.end();
             })
                 .listen(80);
             console.log(`Mashimaro start on port 443`);
