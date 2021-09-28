@@ -1,10 +1,5 @@
 #!/bin/bash
 
-if [[ $# -eq 0 ]]; then
-    echo 'use ./ubuntu-install.sh domain.com'
-    exit 1
-fi
-
 exists()
 {
   command -v "$1" >/dev/null 2>&1
@@ -19,19 +14,34 @@ logo()
     echo "  \/   \___| \_/\_/ |_\/    \/\__,_|___/_| |_|_|_| |_| |_|\__,_|_|  \___/ "
 }
 
+clear
+logo
+
+echo '------------------'
+echo '| CONFIGURATIONS |'
+echo '------------------'
+
+while :
+do
+    read -p 'Please input the domain of your mashimaro:' DOMAIN
+    if [[ $DOMAIN =~ ^([a-zA-Z0-9][-a-zA-Z0-9]{0,62}\.)+[-a-zA-Z0-9]{2,6}$ ]]; then
+        break
+    else
+        echo Invalid domain! example: your.domain.com
+    fi
+done
+
 echo '--------------------'
 echo '| CREATE WORKSPACE |'
 echo '--------------------'
 
-## mkdir
-mkdir /home/mashimaro -p
+sudo mkdir /home/mashimaro -p
 cd /home/mashimaro
 
 echo '------------------------'
 echo '| NODE.JS INSTALLATION |'
 echo '------------------------'
 
-## node and mashimaro
 if ! exists node; then
     curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
     sudo apt-get install -y nodejs
@@ -44,7 +54,7 @@ echo '--------------------------'
 sudo npm install @dctewi/tewi-mashimaro -g
 
 sudo wget https://raw.githubusercontent.com/DCTewi/TewiMashimaro/main/tools/mashimaro.service
-sudo sed -i "s/__USER_DOMAIN__/$1/g" mashimaro.service
+sudo sed -i "s/__USER_DOMAIN__/$DOMAIN/g" mashimaro.service
 
 sudo mv mashimaro.service /etc/systemd/system/mashimaro.service
 sudo systemctl daemon-reload
@@ -54,7 +64,6 @@ echo '------------------------'
 echo '| CERTBOT INSTALLATION |'
 echo '------------------------'
 
-## snap and certbot
 if ! exists snap; then
     sudo apt install snapd -y
 fi
@@ -72,7 +81,7 @@ echo '------------------'
 echo '| SSL GENERATION |'
 echo '------------------'
 
-sudo certbot certonly --standalone --noninteractive --agree-tos -m john@doe.com -d $1
+sudo certbot certonly --standalone --noninteractive --agree-tos -m john@doe.com -d $DOMAIN
 
 sudo sh -c 'printf "#!/bin/bash\n systemctl stop mashimaro\n" > /etc/letsencrypt/renewal-hooks/pre/mashimaro.sh'
 sudo sh -c 'printf "#!/bin/bash\n systemctl start mashimaro\n" > /etc/letsencrypt/renewal-hooks/post/mashimaro.sh'
@@ -87,11 +96,10 @@ echo '--------------------'
 ## final start
 sudo systemctl start mashimaro.service
 
-
 echo '--------------------'
 echo '| INSTALL FINISHED |'
 echo '--------------------'
 
 logo
 
-echo try to access $1
+echo Try to access your mashimaro on $DOMAIN !
