@@ -19,7 +19,7 @@ const _staticDir = '../public'
 export interface ServerArgs {
     dir: string,
     recordLog: boolean,
-    enableSSL: boolean,
+    localonly: boolean,
     port: number
 }
 
@@ -50,12 +50,13 @@ export const server = {
         app.use(cookieParser())
         app.use(localizer)
         app.use(express.urlencoded({ extended: true }))
-        app.use(csurf({ cookie: { httpOnly: true, secure: arg.enableSSL } }))
+        app.use(csurf({ cookie: { httpOnly: true, secure: arg.localonly } }))
 
         app.use('', homeRouter)
         app.use('/me', adminRouter)
 
-        if (arg.enableSSL) {
+        if (arg.localonly) {
+            console.log('LOCAL ONLY MODE')
             app.listen(arg.port, "127.0.0.1", () => {
                 console.log(`Mashimaro start on port ${arg.port}`)
             })

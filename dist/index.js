@@ -16,15 +16,14 @@ const main = () => {
             description: '棉花糖的启动位置(请保证读写权限)'
         },
         log: {
-            alias: 'l',
             type: 'boolean',
             default: true,
             description: '是否记录访问日志'
         },
-        ssl: {
+        local: {
             type: 'boolean',
             default: false,
-            description: '是否启用了SSL'
+            description: '是否仅监听本地回环(127.0.0.1)'
         },
         port: {
             type: 'number',
@@ -37,7 +36,7 @@ const main = () => {
     const serverarg = {
         dir: args.dir,
         recordLog: args.log,
-        enableSSL: args.ssl,
+        localonly: args.local,
         port: args.port
     };
     server_1.server.deploy(serverarg);

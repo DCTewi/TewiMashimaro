@@ -42,10 +42,11 @@ exports.server = {
         app.use((0, cookie_parser_1.default)());
         app.use(localizer_1.localizer);
         app.use(express_1.default.urlencoded({ extended: true }));
-        app.use((0, csurf_1.default)({ cookie: { httpOnly: true, secure: arg.enableSSL } }));
+        app.use((0, csurf_1.default)({ cookie: { httpOnly: true, secure: arg.localonly } }));
         app.use('', home_1.homeRouter);
         app.use('/me', admin_1.adminRouter);
-        if (arg.enableSSL) {
+        if (arg.localonly) {
+            console.log('LOCAL ONLY MODE');
             app.listen(arg.port, "127.0.0.1", () => {
                 console.log(`Mashimaro start on port ${arg.port}`);
             });
