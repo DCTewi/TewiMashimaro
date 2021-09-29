@@ -24,7 +24,13 @@ homeRouter.get('', async (req, res) => {
     const capacity = config().pageCapacity
     const startCount = capacity * (pageNumber - 1)
     const endCount = startCount + capacity
-    const answeredMashimaros = (await db().get()).filter(m => m.answer != undefined)
+    const answeredMashimaros = (await db().get()).filter(m => m.answer != undefined).sort((a, b): number => {
+        if (a.read != b.read) {
+            return a.read ? 1 : -1
+        }
+
+        return new Date(a.time).getTime() - new Date(b.time).getTime()
+    })
 
     res.render(path.resolve(__dirname, '../../views/home.pug'), {
         siteName: config().siteName,

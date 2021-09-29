@@ -35,7 +35,12 @@ exports.homeRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, funct
     const capacity = (0, configuration_1.config)().pageCapacity;
     const startCount = capacity * (pageNumber - 1);
     const endCount = startCount + capacity;
-    const answeredMashimaros = (yield (0, database_1.db)().get()).filter(m => m.answer != undefined);
+    const answeredMashimaros = (yield (0, database_1.db)().get()).filter(m => m.answer != undefined).sort((a, b) => {
+        if (a.read != b.read) {
+            return a.read ? 1 : -1;
+        }
+        return new Date(a.time).getTime() - new Date(b.time).getTime();
+    });
     res.render(path_1.default.resolve(__dirname, '../../views/home.pug'), {
         siteName: (0, configuration_1.config)().siteName,
         title: (0, configuration_1.config)().siteName,
