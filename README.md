@@ -72,7 +72,8 @@ Tewi-Mashimaro 是一个自部署的棉花糖（一种可以接受来自网友�
 3. 可以通过以下指令检查更新：
 
    ```bash
-   npm install -g @dctewi/tewi-mashimaro
+   sudo npm install -g @dctewi/tewi-mashimaro
+   sudo service mashimaro restart
    ```
 
 ### 自定义部署
@@ -99,5 +100,5 @@ Tewi-Mashimaro 是一个自部署的棉花糖（一种可以接受来自网友�
 
 管理界面：
 
-![](https://s-sh-2563-tewi-box.oss.dogecdn.com/img/github/tewi-mashimaro/screenshot-2.jpeg)
+![](https://s-sh-2563-tewi-box.oss.dogecdn.com/img/github/tewi-mashimaro/screenshot-admin.jpeg)
 
