@@ -3,7 +3,7 @@ Description=TewiMashimaro
 
 [Service]
 WorkingDirectory=/home/mashimaro
-ExecStart=/usr/bin/env mashimaro -d /home/mashimaro --ssl=true
+ExecStart=/usr/bin/env mashimaro -d /home/mashimaro --local
 Restart=always
 RestartSec=10
 SyslogIdentifier=tewi-mashimaro

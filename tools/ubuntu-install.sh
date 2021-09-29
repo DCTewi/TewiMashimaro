@@ -60,60 +60,32 @@ sudo mv mashimaro.service /etc/systemd/system/mashimaro.service
 sudo systemctl daemon-reload
 sudo systemctl enable mashimaro.service
 
-echo '------------------------'
-echo '| CERTBOT INSTALLATION |'
-echo '------------------------'
-
-if ! exists snap; then
-    sudo apt install snapd -y
-fi
-
-sudo snap install core; sudo snap refresh core
-
-if exists certbot; then
-    sudo apt remove certbot -y
-fi
-
-sudo snap install --classic certbot
-sudo ln -s /snap/bin/certbot /usr/bin/certbot
-
-echo '------------------'
-echo '| SSL GENERATION |'
-echo '------------------'
-
-sudo certbot certonly --standalone --noninteractive --agree-tos -m john@doe.com -d $DOMAIN
-
-sudo sh -c 'printf "#!/bin/bash\nsystemctl stop mashimaro\n" > /etc/letsencrypt/renewal-hooks/pre/mashimaro.sh'
-sudo sh -c 'printf "#!/bin/bash\nsystemctl start mashimaro\n" > /etc/letsencrypt/renewal-hooks/post/mashimaro.sh'
-
-sudo chmod 755 /etc/letsencrypt/renewal-hooks/pre/mashimaro.sh
-sudo chmod 755 /etc/letsencrypt/renewal-hooks/post/mashimaro.sh
-
 echo '----------------------'
-echo '| NGINX INSTALLATION |'
+echo '| CADDY INSTALLATION |'
 echo '----------------------'
 
-sudo apt install nginx -y
-sudo systemctl enable nginx
-sudo systemctl start nginx
+if ! exists caddy; then
+    sudo apt install -y debian-keyring debian-archive-keyring apt-transport-https
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | sudo tee /etc/apt/trusted.gpg.d/caddy-stable.asc
+    curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | sudo tee /etc/apt/sources.list.d/caddy-stable.list
+    sudo apt update
+    sudo apt install caddy -y
+fi
 
-sudo rm /etc/nginx/sites-enabled/default
+sudo wget https://raw.githubusercontent.com/DCTewi/TewiMashimaro/main/tools/Caddyfile
+sudo sed -i "s/__USER_DOMAIN__/$DOMAIN/g" Caddyfile
+sudo mv Caddyfile /etc/caddy/Caddyfile
 
-sudo wget https://raw.githubusercontent.com/DCTewi/TewiMashimaro/main/tools/nginx/mashimaro.conf
-sudo sed -i "s/__USER_DOMAIN__/$DOMAIN/g" mashimaro.conf
-sudo mv mashimaro.conf /etc/nginx/sites-enabled/$DOMAIN
-
-sudo wget https://raw.githubusercontent.com/DCTewi/TewiMashimaro/main/tools/nginx/proxy.conf
-sudo mv proxy.conf /etc/nginx/conf.d/proxy.conf
-
-sudo nginx -s reload
+sudo systemctl reload caddy
 
 echo '--------------------'
 echo '| STARTING SERVICE |'
 echo '--------------------'
 
 ## final start
+
 sudo systemctl start mashimaro.service
+sudo systemctl start caddy
 
 echo '--------------------'
 echo '| INSTALL FINISHED |'
