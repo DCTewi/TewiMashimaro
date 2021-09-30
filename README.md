@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![](https://img.shields.io/npm/v/@dctewi/tewi-mashimaro?label=%40dctewi%2Ftewi-mashimaro)](https://www.npmjs.com/package/@dctewi/tewi-mashimaro)
 
-![](https://s-sh-2563-tewi-box.oss.dogecdn.com/img/github/tewi-mashimaro.png)
+![](https://s-sh-2563-tewi-box.oss.dogecdn.com/img/github/tewi-mashimaro/icon.png)
 
 ## 简介
 
