@@ -10,6 +10,10 @@ html.h-100(lang="zh-CN")
             crossorigin='anonymous'
         )
         style #{backgroundCss}
+        style.
+            img {
+                max-width: 100%;
+            }
         link(rel='icon' href='/favicon.ico')
         link(href='/css/site.css' rel='stylesheet')
         if title == siteName 
