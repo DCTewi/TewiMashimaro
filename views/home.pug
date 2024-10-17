@@ -2,7 +2,7 @@ extends _layout
 
 block content 
     h1.mt-4.mb-3.text-center #{title}
-    p.text-center.lead !{md.renderInline(description)}
+    div.text-center.lead !{md.render(description)}
     if headerImage && headerImage != ''
         img.img-fluid.rounded.mx-auto.d-block.mb-3(src=headerImage alt='header image' style='max-height: 250px')
     if mashimaroStatus 
