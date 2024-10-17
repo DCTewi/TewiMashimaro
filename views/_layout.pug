@@ -9,13 +9,14 @@ html.h-100(lang="zh-CN")
             rel='stylesheet'
             crossorigin='anonymous'
         )
+        style #{backgroundCss}
         link(rel='icon' href='/favicon.ico')
         link(href='/css/site.css' rel='stylesheet')
         if title == siteName 
             title #{siteName}
         else 
             title #{title} - #{siteName}
-    body.d-flex.flex-column.h-100
+    body.d-flex.flex-column.h-100.background-container
         script(src='/js/preload.js')
         main.flex-shrink-0
             div.dropdown.float-end.mt-3.me-3
@@ -30,7 +31,7 @@ html.h-100(lang="zh-CN")
                         btn.dropdown-item(onclick='setlang("ja")') ja
             div.container
                 block content
-        footer.footer.mt-auto.py-3.bg-light
+        footer.footer.mt-auto.py-3
             div.containter
                 p.text-center.text-muted 
                     btn.text-decoration-none.link-primary(data-bs-toggle='modal' data-bs-target='#henshinModal') ⚡ 

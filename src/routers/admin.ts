@@ -2,6 +2,9 @@ import { Router } from "express";
 import path from "path";
 import { config } from "../utils/configuration";
 import { db } from "../utils/database";
+import MarkdownIt from "markdown-it";
+
+const md = MarkdownIt()
 
 export const adminRouter = Router()
 
@@ -36,7 +39,9 @@ adminRouter.get('', async (req, res) => {
             pageTotal: Math.max(Math.ceil(mashimaros.length / capacity), 1),
             userKey: userKey,
 
-            localizer: req.localizer
+            localizer: req.localizer,
+            backgroundCss: `.background-container{background-image: url(${config().backgroundImageUrl});background-attachment:fixed;}`,
+            md: md,
         })
     } else {
         res.redirect('/')

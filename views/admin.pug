@@ -26,11 +26,11 @@ block content
                                 small.text-primary #{mashimaro.author} 
                                 small.text-secondary
                                     small ( #{localizer.admin.nickWarning} )
-                            p.my-2 #{mashimaro.content}
+                            p.my-2 !{md.render(mashimaro.content)}
                         if mashimaro.answer
                             li.list-group-item 
                                 small.my-1.text-secondary.font-monospace 🎈 Answer: 
-                                p.my-2 #{mashimaro.answer}
+                                p.my-2 !{md.render(mashimaro.answer)}
                         li.list-group-item.text-center
                             form(method='post' action=`/me?key=${userKey}`)
                                 input(type='hidden' name='id' value=mashimaro.id)

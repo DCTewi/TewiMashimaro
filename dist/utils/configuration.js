@@ -12,6 +12,7 @@ class Configuration {
         this.siteName = "Tewi Mashimaro";
         this.description = "通过棉花糖来向我匿名提问!";
         this.headerImageUrl = '';
+        this.backgroundImageUrl = '';
         this.frequencyLimitPerMinute = 6;
         this.pageCapacity = 5;
         this.adminCapacity = 10;

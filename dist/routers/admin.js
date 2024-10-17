@@ -17,6 +17,8 @@ const express_1 = require("express");
 const path_1 = __importDefault(require("path"));
 const configuration_1 = require("../utils/configuration");
 const database_1 = require("../utils/database");
+const markdown_it_1 = __importDefault(require("markdown-it"));
+const md = (0, markdown_it_1.default)();
 exports.adminRouter = (0, express_1.Router)();
 exports.adminRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userKey = req.query.key;
@@ -42,7 +44,9 @@ exports.adminRouter.get('', (req, res) => __awaiter(void 0, void 0, void 0, func
             pageNumber: pageNumber,
             pageTotal: Math.max(Math.ceil(mashimaros.length / capacity), 1),
             userKey: userKey,
-            localizer: req.localizer
+            localizer: req.localizer,
+            backgroundCss: `.background-container{background-image: url(${(0, configuration_1.config)().backgroundImageUrl});background-attachment:fixed;}`,
+            md: md,
         });
     }
     else {

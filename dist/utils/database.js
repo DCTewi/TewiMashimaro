@@ -29,6 +29,12 @@ class Mashimaro {
 }
 exports.Mashimaro = Mashimaro;
 class DbContext {
+    static instance() {
+        if (DbContext._instance == undefined) {
+            DbContext._instance = new DbContext();
+        }
+        return DbContext._instance;
+    }
     constructor() {
         if (DbContext._instance != undefined) {
             throw "can't instantiate a singeleton twice";
@@ -37,12 +43,6 @@ class DbContext {
             DbContext._instance = this;
         }
         this._db = (0, level_1.default)((0, pathresolver_1.resolvedPath)(relativeDbPath), { valueEncoding: 'json' });
-    }
-    static instance() {
-        if (DbContext._instance == undefined) {
-            DbContext._instance = new DbContext();
-        }
-        return DbContext._instance;
     }
     get() {
         return __awaiter(this, void 0, void 0, function* () {

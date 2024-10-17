@@ -44,10 +44,10 @@ block content
                     ul.list-group.list-group-flush
                         li.list-group-item 
                             small.my-1.text-secondary.font-monospace 💬 Mashimaro: 
-                            p.my-2 #{mashimaro.content}
+                            p.my-2 !{md.render(mashimaro.content)}
                         li.list-group-item 
                             small.my-1.text-secondary.font-monospace 🎈 Answer: 
-                            p.my-2 #{mashimaro.answer}
+                            p.my-2 !{md.render(mashimaro.answer)}
         nav
             ul.pagination.justify-content-center
                 - var page = parseInt(pageNumber, 10)

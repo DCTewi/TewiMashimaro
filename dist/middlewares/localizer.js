@@ -6,7 +6,7 @@ var Languages;
     Languages["zh"] = "zh";
     Languages["en"] = "en";
     Languages["ja"] = "ja";
-})(Languages = exports.Languages || (exports.Languages = {}));
+})(Languages || (exports.Languages = Languages = {}));
 const localizationDictionary = {
     'zh': {
         home: {

@@ -2,6 +2,9 @@ import { Router } from "express";
 import path from "path";
 import { config } from "../utils/configuration";
 import { db, Mashimaro } from "../utils/database";
+import MarkdownIt from "markdown-it";
+
+const md = MarkdownIt()
 
 export const homeRouter = Router()
 
@@ -46,7 +49,9 @@ homeRouter.get('', async (req, res) => {
         pageNumber: pageNumber,
         pageTotal: Math.max(Math.ceil(answeredMashimaros.length / capacity), 1),
 
-        localizer: req.localizer
+        localizer: req.localizer,
+        backgroundCss: `.background-container{background-image: url(${config().backgroundImageUrl});background-attachment:fixed;}`,
+        md: md,
     })
 })
 
