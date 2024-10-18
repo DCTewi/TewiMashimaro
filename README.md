@@ -3,13 +3,13 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![](https://img.shields.io/npm/v/@dctewi/tewi-mashimaro?label=%40dctewi%2Ftewi-mashimaro)](https://www.npmjs.com/package/@dctewi/tewi-mashimaro)
 
-<img align='center' src='https://raw.githubusercontent.com/DCTewi/TewiMashimaro/refs/heads/main/icon.png' width='320px'>
+<img src='https://raw.githubusercontent.com/DCTewi/TewiMashimaro/refs/heads/main/icon.png' width='320px'>
 
 ## 简介
 
 Tewi-Mashimaro 是一个自部署的棉花糖（一种可以接受来自网友的匿名提问的站点）项目。
 
-部署本项目之后，你可以得到一个独立的棉花糖站点。~~效果可以查看[这里](https://tewi.mashimaro.space)或者下方的截图。~~图床过期了，发挥想象力吧。
+部署本项目之后，你可以得到一个独立的棉花糖站点。~~效果可以查看[这里](https://tewi.mashimaro.space)或者下方的截图。~~ 图床过期了，发挥想象力吧。
 
 
 ## 部署
@@ -21,7 +21,7 @@ Tewi-Mashimaro 是一个自部署的棉花糖（一种可以接受来自网友�
 #### 1. 准备工作
 
 1. 一台系统为 Ubuntu LTS 18.04 的服务器（可以在阿里、腾讯云等地购买，注意尽量使用香港服务器，大陆内服务器需要提前备案）
-2. 一个用来绑定的域名（如果不会申请，可以邮件联系 dctewi@dctewi.com，~~我可以免费提供一个 *.mashimaro.space 域名的解析）~~这个域名过期了，还想要的话可以随便给你一个。
+2. 一个用来绑定的域名（如果不会申请，可以邮件联系 dctewi@dctewi.com，~~我可以免费提供一个 *.mashimaro.space 域名的解析）~~ 这个域名过期了，还想要的话可以随便给你一个。
 
 #### 2. 解析域名到服务器
 
